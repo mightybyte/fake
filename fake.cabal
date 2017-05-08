@@ -1,0 +1,35 @@
+name:                fake
+version:             0.1.0.0
+synopsis:            Randomly generated fake data
+description:
+  QuickCheck generates completely random data for the purposes of test and
+  catching corner cases.  The fake package provides tools for generating data
+  that looks plausibly real.
+
+license:             BSD3
+license-file:        LICENSE
+author:              Doug Beardsley
+maintainer:          doug@takt.com
+copyright:           Takt Inc
+build-type:          Simple
+extra-source-files:  ChangeLog.md
+cabal-version:       >=1.10
+
+library
+  exposed-modules: 
+    Fake
+    Fake.Class
+    Fake.Combinators
+    Fake.Lang
+    Fake.Lang.EN
+
+  other-modules:    Fake.Types
+
+  build-depends:
+    base   >= 4.9 && < 4.10,
+    random >= 1.1 && < 1.2,
+    text   >= 1.2 && < 1.3
+
+  ghc-options: -O -Wall
+  hs-source-dirs:      src
+  default-language:    Haskell2010
