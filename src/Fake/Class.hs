@@ -40,17 +40,17 @@ instance (Fake a, Fake b, Fake c, Fake d) => Fake (a,b,c,d) where
 instance (Fake a, Fake b, Fake c, Fake d, Fake e) => Fake (a,b,c,d,e) where
     fake = liftM5 (,,,,) fake fake fake fake fake
 
-instance ( Fake a, Fake b, Fake c, Fake d, Fake e, Fake f)
+instance (Fake a, Fake b, Fake c, Fake d, Fake e, Fake f)
       => Fake (a,b,c,d,e,f) where
     fake = return (,,,,,)
           <*> fake <*> fake <*> fake <*> fake <*> fake <*> fake
 
-instance ( Fake a, Fake b, Fake c, Fake d, Fake e, Fake f, Fake g)
+instance (Fake a, Fake b, Fake c, Fake d, Fake e, Fake f, Fake g)
       => Fake (a,b,c,d,e,f,g) where
     fake = return (,,,,,,)
           <*> fake <*> fake <*> fake <*> fake <*> fake <*> fake <*> fake
 
-instance ( Fake a, Fake b, Fake c, Fake d, Fake e, Fake f, Fake g, Fake h)
+instance (Fake a, Fake b, Fake c, Fake d, Fake e, Fake f, Fake g, Fake h)
       => Fake (a,b,c,d,e,f,g,h) where
     fake = return (,,,,,,,)
           <*> fake <*> fake <*> fake <*> fake <*> fake <*> fake <*> fake

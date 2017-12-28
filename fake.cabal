@@ -20,16 +20,29 @@ library
     Fake
     Fake.Class
     Fake.Combinators
+    Fake.Cover
     Fake.Lang
     Fake.Lang.EN
 
   other-modules:    Fake.Types
 
   build-depends:
-    base   >= 4.9 && < 4.10,
-    random >= 1.1 && < 1.2,
-    text   >= 1.2 && < 1.3
+    base         >= 4.9 && < 4.10,
+    generics-sop >= 0.3 && < 0.4,
+    random       >= 1.1 && < 1.2,
+    text         >= 1.2 && < 1.3
 
   ghc-options: -O -Wall
   hs-source-dirs:      src
+  default-language:    Haskell2010
+
+test-suite spec
+  type: exitcode-stdio-1.0
+  main-is: Main.hs
+  hs-source-dirs: test, src
+  build-depends:
+    base,
+    hspec >= 2.4 && < 2.5,
+    random
+  ghc-options: -Wall -threaded -fno-warn-partial-type-signatures
   default-language:    Haskell2010
