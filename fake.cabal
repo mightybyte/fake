@@ -45,6 +45,7 @@ test-suite spec
     base,
     hspec >= 2.4 && < 2.5,
     random,
+    text,
     time
   ghc-options: -Wall -threaded -fno-warn-partial-type-signatures
   default-language:    Haskell2010

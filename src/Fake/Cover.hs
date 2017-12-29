@@ -7,6 +7,7 @@
 {-# LANGUAGE TypeFamilies         #-}
 {-# LANGUAGE TypeOperators        #-}
 {-# LANGUAGE UndecidableInstances #-}
+{-# LANGUAGE DeriveFunctor #-}
 
 -- | Generate fake values with full constructor coverage
 --
@@ -18,16 +19,38 @@
 --
 -- numCases (a, b) = max (numCases a) (numCases b)
 -- numCases (Either a b) = numCases a + numCases b
-module Fake.Cover (Cover(..), gcover) where
+module Fake.Cover (Cover(..), Coverage (..), gcover, gcoverage, coverage) where
 
 ------------------------------------------------------------------------------
+import Control.Applicative
 import Control.Monad
 import GHC.Generics as G
 ------------------------------------------------------------------------------
 import Fake.Types
 ------------------------------------------------------------------------------
 
+newtype Coverage a = Coverage { unCoverage :: [FGen a] }
+  deriving (Functor)
 
+instance Applicative Coverage where
+  pure = Coverage . pure . pure
+  Coverage as <*> Coverage bs = Coverage $ zipWith (<*>)
+     (as ++ take (newlen - alen) (cycle as))
+     (bs ++ take (newlen - blen) (cycle bs))
+   where
+    alen = length as
+    blen = length bs
+    newlen = max alen blen
+
+coverage :: Cover a => Coverage a
+coverage = Coverage cover
+
+gcoverage :: (Generic a, GCover ga, ga ~ G.Rep a) => Coverage a
+gcoverage = Coverage $ fmap G.to <$> genericCover
+
+instance Alternative Coverage where
+  empty = Coverage empty
+  Coverage as <|> Coverage bs = Coverage (as ++ bs)
 ------------------------------------------------------------------------------
 -- | A type class that generates a list of values giving full construcor
 -- coverage for data types.  You can write your own instances by hand or you
@@ -64,9 +87,7 @@ instance (Cover a, Cover b, Cover c, Cover d, Cover e, Cover f)
 instance (Cover a, Cover b, Cover c, Cover d, Cover e, Cover f, Cover g)
       => Cover (a,b,c,d,e,f,g) where
     cover = gcover
-
 -- GHC only has Generic instances up to 7-tuples
-
 
 ------------------------------------------------------------------------------
 class GCover a where
