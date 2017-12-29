@@ -7,6 +7,7 @@
 {-# LANGUAGE TypeFamilies         #-}
 {-# LANGUAGE TypeOperators        #-}
 {-# LANGUAGE UndecidableInstances #-}
+{-# LANGUAGE DeriveFunctor #-}
 
 -- | Generate fake values with full constructor coverage
 --
@@ -18,22 +19,38 @@
 --
 -- numCases (a, b) = max (numCases a) (numCases b)
 -- numCases (Either a b) = numCases a + numCases b
-module Fake.Cover (Cover(..), gcover) where
+module Fake.Cover (Cover(..), Coverage (..), gcover) where
 
 ------------------------------------------------------------------------------
+import Control.Applicative
 import Control.Monad
 import GHC.Generics as G
 ------------------------------------------------------------------------------
 import Fake.Types
 ------------------------------------------------------------------------------
 
+newtype Coverage a = Coverage { unCoverage :: [FGen a] }
+  deriving (Functor)
 
+instance Applicative Coverage where
+  pure = Coverage . pure . pure
+  Coverage as <*> Coverage bs = Coverage $ zipWith (<*>)
+     (as ++ take (newlen - alen) (cycle as))
+     (bs ++ take (newlen - blen) (cycle bs))
+   where
+    alen = length as
+    blen = length bs
+    newlen = max alen blen
+
+instance Alternative Coverage where
+  empty = Coverage empty
+  Coverage as <|> Coverage bs = Coverage (as ++ bs)
 ------------------------------------------------------------------------------
 -- | A type class that generates a list of values giving full construcor
 -- coverage for data types.  You can write your own instances by hand or you
 -- can use @instance Cover where cover = gcover@.
 class Cover a where
-    cover :: [FGen a]
+    cover :: Coverage a
 
 instance Cover () where
     cover = gcover
@@ -64,9 +81,7 @@ instance (Cover a, Cover b, Cover c, Cover d, Cover e, Cover f)
 instance (Cover a, Cover b, Cover c, Cover d, Cover e, Cover f, Cover g)
       => Cover (a,b,c,d,e,f,g) where
     cover = gcover
-
 -- GHC only has Generic instances up to 7-tuples
-
 
 ------------------------------------------------------------------------------
 class GCover a where
@@ -76,7 +91,7 @@ instance GCover G.U1 where
     genericCover = pure $ pure G.U1
 
 instance Cover c => GCover (G.K1 i c) where
-    genericCover = fmap G.K1 <$> cover
+    genericCover = fmap G.K1 <$> unCoverage cover
 
 instance GCover f => GCover (G.M1 i c f) where
     genericCover = fmap G.M1 <$> genericCover
@@ -96,6 +111,5 @@ instance (GCover a, GCover b) => GCover (a G.:+: b) where
     genericCover = fmap (fmap G.L1) genericCover ++
                    fmap (fmap G.R1) genericCover
 
-gcover :: (Generic a, GCover ga, ga ~ G.Rep a) => [FGen a]
-gcover = fmap G.to <$> genericCover
-
+gcover :: (Generic a, GCover ga, ga ~ G.Rep a) => Coverage a
+gcover = Coverage $ fmap G.to <$> genericCover

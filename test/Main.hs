@@ -1,22 +1,28 @@
+{-# OPTIONS_GHC -fno-warn-orphans #-}
 {-# LANGUAGE DeriveGeneric        #-}
 
 module Main where
 
 ------------------------------------------------------------------------------
+import           Data.Foldable
+import           Data.Time
 import           GHC.Generics
 import           System.Random
 import           Test.Hspec
+import           Data.Text (unpack)
 ------------------------------------------------------------------------------
 import           Fake.Class
 import           Fake.Types
 import           Fake.Cover
+import           Fake.Combinators
+import           Fake.Lang.EN
 ------------------------------------------------------------------------------
 
 testFake :: FGen a -> a
 testFake (MkFGen f) = f $ mkStdGen 5
 
-tc :: [FGen a] -> [a]
-tc = testFake . sequence
+tc :: Coverage a -> [a]
+tc = testFake . sequence . unCoverage
 
 ------------------------------------------------------------------------------
 main :: IO ()
@@ -39,12 +45,18 @@ main = hspec $ do
         , Right (MThree 12)
         , Right (MFour 'v')
         ]
+      -- Since Person contains one Maybe field, cover should generate two values
+      it "Person" $
+        tc cover `shouldBe`
+        [ Person "lillie" "russell" (fromGregorian 1958 10 12) Nothing
+        , Person "tim" "brooks" (fromGregorian 1966 07 21) (Just "123-45-6789")
+        ]
 
 instance Cover Int where
-    cover = [fakeEnumFromTo 0 100]
+    cover = Coverage [fakeEnumFromTo 0 100]
 
 instance Cover Char where
-    cover = [fakeEnumFromTo 'a' 'z']
+    cover = Coverage [fakeEnumFromTo 'a' 'z']
 
 data ThreePhonetic = Alpha | Bravo | Charlie
   deriving (Eq,Ord,Show,Generic)
@@ -60,3 +72,32 @@ data Four = MOne Int
 
 instance Cover Four where
     cover = gcover
+
+birthdayCoverage :: Coverage Day
+birthdayCoverage = fromGregorian
+    <$> Coverage [fakeEnumFromTo 1950 2017]
+    <*> Coverage [fakeEnumFromTo 1 12]
+    <*> Coverage [fakeEnumFromTo 1 31]
+
+ssnCoverage :: Coverage String
+ssnCoverage = Coverage [element ["123-45-6789", "000-00-0000"]]
+
+data Person = Person
+  { personFirstName :: String
+  , personLastName  :: String
+  , personBirthdate :: Day
+  , personSSN       :: Maybe String
+  } deriving (Eq,Ord,Show,Generic)
+
+------------------------------------------------------------------------------
+-- | Must be able to define a Cover instnance for Person without needing to
+-- define instances for Day and String.
+--instance Cover Person where
+--    cover = gcover
+
+instance Cover Person where
+  cover = Person
+    <$> fmap unpack (Coverage [firstName])
+    <*> fmap unpack (Coverage [lastName])
+    <*> birthdayCoverage
+    <*> asum [ pure Nothing, Just <$> ssnCoverage ]
