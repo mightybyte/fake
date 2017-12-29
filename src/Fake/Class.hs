@@ -50,29 +50,7 @@ instance (Fake a, Fake b, Fake c, Fake d, Fake e, Fake f, Fake g)
     fake = return (,,,,,,)
           <*> fake <*> fake <*> fake <*> fake <*> fake <*> fake <*> fake
 
-instance (Fake a, Fake b, Fake c, Fake d, Fake e, Fake f, Fake g, Fake h)
-      => Fake (a,b,c,d,e,f,g,h) where
-    fake = return (,,,,,,,)
-          <*> fake <*> fake <*> fake <*> fake <*> fake <*> fake <*> fake
-          <*> fake
-
-instance ( Fake a, Fake b, Fake c, Fake d, Fake e
-         , Fake f, Fake g, Fake h, Fake i
-         )
-      => Fake (a,b,c,d,e,f,g,h,i)
-  where
-    fake = return (,,,,,,,,)
-          <*> fake <*> fake <*> fake <*> fake <*> fake <*> fake <*> fake
-          <*> fake <*> fake
-
-instance ( Fake a, Fake b, Fake c, Fake d, Fake e
-         , Fake f, Fake g, Fake h, Fake i, Fake j
-         )
-      => Fake (a,b,c,d,e,f,g,h,i,j)
-  where
-    fake = return (,,,,,,,,,)
-          <*> fake <*> fake <*> fake <*> fake <*> fake <*> fake <*> fake
-          <*> fake <*> fake <*> fake
+-- GHC only has Generic instances up to 7-tuples
 
 -- | Generates a list of a given length.
 fakeVector :: Fake a => Int -> FGen [a]

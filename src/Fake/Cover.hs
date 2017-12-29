@@ -65,26 +65,7 @@ instance (Cover a, Cover b, Cover c, Cover d, Cover e, Cover f, Cover g)
       => Cover (a,b,c,d,e,f,g) where
     cover = gcover
 
--- Apparently these tuples don't have Generic instances :(
-
---instance ( Cover a, Cover b, Cover c, Cover d, Cover e, Cover f, Cover g
---         , Cover h)
---      => Cover (a,b,c,d,e,f,g,h) where
---    cover = gcover
---
---instance ( Cover a, Cover b, Cover c, Cover d, Cover e
---         , Cover f, Cover g, Cover h, Cover i
---         )
---      => Cover (a,b,c,d,e,f,g,h,i)
---  where
---    cover = gcover
---
---instance ( Cover a, Cover b, Cover c, Cover d, Cover e
---         , Cover f, Cover g, Cover h, Cover i, Cover j
---         )
---      => Cover (a,b,c,d,e,f,g,h,i,j)
---  where
---    cover = gcover
+-- GHC only has Generic instances up to 7-tuples
 
 
 ------------------------------------------------------------------------------
