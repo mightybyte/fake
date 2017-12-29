@@ -40,6 +40,12 @@ main = hspec $ do
         , Right (MThree 12)
         , Right (MFour 'v')
         ]
+      -- Since Person contains one Maybe field, cover should generate two values
+      --it "Person" $
+      --  tc gcover `shouldBe`
+      --  [ Person "Alice" "Baker" (fromGregorian 2017 05 13) Nothing
+      --  , Person "Frank" "Adams" (fromGregorian 2017 02 20) (Just "123-45-6789")
+      --  ]
 
 instance Cover Int where
     cover = [fakeEnumFromTo 0 100]
@@ -66,7 +72,7 @@ data Person = Person
   { personFirstName :: String
   , personLastName  :: String
   , personBirthdate :: Day
-  , personSSN       :: String
+  , personSSN       :: Maybe String
   } deriving (Eq,Ord,Show,Generic)
 
 ------------------------------------------------------------------------------
