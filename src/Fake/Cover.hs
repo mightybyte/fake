@@ -19,7 +19,7 @@
 --
 -- numCases (a, b) = max (numCases a) (numCases b)
 -- numCases (Either a b) = numCases a + numCases b
-module Fake.Cover (Cover(..), Coverage (..), gcover, gcoverage, coverage) where
+module Fake.Cover (Cover(..), Coverage (..), gcover) where
 
 ------------------------------------------------------------------------------
 import Control.Applicative
@@ -42,12 +42,6 @@ instance Applicative Coverage where
     blen = length bs
     newlen = max alen blen
 
-coverage :: Cover a => Coverage a
-coverage = Coverage cover
-
-gcoverage :: (Generic a, GCover ga, ga ~ G.Rep a) => Coverage a
-gcoverage = Coverage $ fmap G.to <$> genericCover
-
 instance Alternative Coverage where
   empty = Coverage empty
   Coverage as <|> Coverage bs = Coverage (as ++ bs)
@@ -56,7 +50,7 @@ instance Alternative Coverage where
 -- coverage for data types.  You can write your own instances by hand or you
 -- can use @instance Cover where cover = gcover@.
 class Cover a where
-    cover :: [FGen a]
+    cover :: Coverage a
 
 instance Cover () where
     cover = gcover
@@ -97,7 +91,7 @@ instance GCover G.U1 where
     genericCover = pure $ pure G.U1
 
 instance Cover c => GCover (G.K1 i c) where
-    genericCover = fmap G.K1 <$> cover
+    genericCover = fmap G.K1 <$> unCoverage cover
 
 instance GCover f => GCover (G.M1 i c f) where
     genericCover = fmap G.M1 <$> genericCover
@@ -117,6 +111,5 @@ instance (GCover a, GCover b) => GCover (a G.:+: b) where
     genericCover = fmap (fmap G.L1) genericCover ++
                    fmap (fmap G.R1) genericCover
 
-gcover :: (Generic a, GCover ga, ga ~ G.Rep a) => [FGen a]
-gcover = fmap G.to <$> genericCover
-
+gcover :: (Generic a, GCover ga, ga ~ G.Rep a) => Coverage a
+gcover = Coverage $ fmap G.to <$> genericCover

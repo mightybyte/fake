@@ -21,8 +21,8 @@ import           Fake.Lang.EN
 testFake :: FGen a -> a
 testFake (MkFGen f) = f $ mkStdGen 5
 
-tc :: [FGen a] -> [a]
-tc = testFake . sequence
+tc :: Coverage a -> [a]
+tc = testFake . sequence . unCoverage
 
 ------------------------------------------------------------------------------
 main :: IO ()
@@ -53,10 +53,10 @@ main = hspec $ do
         ]
 
 instance Cover Int where
-    cover = [fakeEnumFromTo 0 100]
+    cover = Coverage [fakeEnumFromTo 0 100]
 
 instance Cover Char where
-    cover = [fakeEnumFromTo 'a' 'z']
+    cover = Coverage [fakeEnumFromTo 'a' 'z']
 
 data ThreePhonetic = Alpha | Bravo | Charlie
   deriving (Eq,Ord,Show,Generic)
@@ -96,7 +96,7 @@ data Person = Person
 --    cover = gcover
 
 instance Cover Person where
-  cover = unCoverage $ Person
+  cover = Person
     <$> fmap unpack (Coverage [firstName])
     <*> fmap unpack (Coverage [lastName])
     <*> birthdayCoverage
