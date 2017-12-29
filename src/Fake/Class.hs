@@ -3,6 +3,7 @@ module Fake.Class where
 ------------------------------------------------------------------------------
 import Control.Monad
 import Data.List
+import Data.Time
 import Fake.Combinators
 import Fake.Types
 ------------------------------------------------------------------------------
@@ -70,3 +71,16 @@ fakeEnumFromTo from to =
 
 fakeEnum :: (Enum a, Bounded a) => FGen a
 fakeEnum = fakeEnumFromTo minBound maxBound
+
+fakeDayFromToYear :: Integer -> Integer -> FGen Day
+fakeDayFromToYear ystart yend =
+    fakeEnumFromTo (fromGregorian ystart 1 1) (fromGregorian yend 12 31)
+
+fakeTimeFromToHour :: Int -> Int -> FGen DiffTime
+fakeTimeFromToHour hstart hend = secondsToDiffTime <$> fromRange (fromIntegral from, fromIntegral to)
+  where
+    from = hstart * 3600
+    to = hend * 3599
+
+fakeUTCFromToYear :: Integer -> Integer -> FGen UTCTime
+fakeUTCFromToYear ystart yend = UTCTime <$> fakeDayFromToYear ystart yend <*> fakeTimeFromToHour 0 24
