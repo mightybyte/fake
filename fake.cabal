@@ -44,6 +44,7 @@ test-suite spec
   build-depends:
     base,
     hspec >= 2.4 && < 2.5,
-    random
+    random,
+    time
   ghc-options: -Wall -threaded -fno-warn-partial-type-signatures
   default-language:    Haskell2010

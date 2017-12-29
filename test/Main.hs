@@ -3,6 +3,7 @@
 module Main where
 
 ------------------------------------------------------------------------------
+import           Data.Time
 import           GHC.Generics
 import           System.Random
 import           Test.Hspec
@@ -60,3 +61,16 @@ data Four = MOne Int
 
 instance Cover Four where
     cover = gcover
+
+data Person = Person
+  { personFirstName :: String
+  , personLastName  :: String
+  , personBirthdate :: Day
+  , personSSN       :: String
+  } deriving (Eq,Ord,Show,Generic)
+
+------------------------------------------------------------------------------
+-- | Must be able to define a Cover instnance for Person without needing to
+-- define instances for Day and String.
+--instance Cover Person where
+--    cover = gcover
