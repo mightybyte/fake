@@ -12,10 +12,11 @@ import           Test.Hspec
 import           Data.Text (unpack)
 ------------------------------------------------------------------------------
 import           Fake.Class
-import           Fake.Types
 import           Fake.Cover
 import           Fake.Combinators
+import           Fake.Lang
 import           Fake.Lang.EN
+import           Fake.Types
 ------------------------------------------------------------------------------
 
 testFake :: FGen a -> a
@@ -48,8 +49,8 @@ main = hspec $ do
       -- Since Person contains one Maybe field, cover should generate two values
       it "Person" $
         tc cover `shouldBe`
-        [ Person "lillie" "russell" (fromGregorian 1958 10 12) Nothing
-        , Person "tim" "brooks" (fromGregorian 1966 07 21) (Just "123-45-6789")
+        [ Person "Lillie" "Russell" (fromGregorian 1958 10 12) Nothing
+        , Person "Tim" "Brooks" (fromGregorian 1966 07 21) (Just "123-45-6789")
         ]
 
 instance Cover Int where
@@ -97,7 +98,7 @@ data Person = Person
 
 instance Cover Person where
   cover = Person
-    <$> fmap unpack (Coverage [firstName])
-    <*> fmap unpack (Coverage [lastName])
+    <$> fmap unpack (Coverage [unSingleWord <$> firstName])
+    <*> fmap unpack (Coverage [unSingleWord <$> lastName])
     <*> birthdayCoverage
     <*> asum [ pure Nothing, Just <$> ssnCoverage ]

@@ -2,11 +2,11 @@
 
 module Fake.Lang.EN where
 
-import Data.Text (Text)
 import Fake.Combinators
+import Fake.Lang
 import Fake.Types
 
-adjective :: FGen Text
+adjective :: FGen SingleWord
 adjective = element
   ["able", "acid", "angry", "automatic", "awake", "bad", "beautiful",
   "bent", "bitter", "black", "blue", "boiling", "bright", "broken",
@@ -31,7 +31,7 @@ adjective = element
   "warm", "wet", "white", "wide", "wise", "wrong", "yellow", "young"]
 
 
-noun :: FGen Text
+noun :: FGen SingleWord
 noun = element
   ["account", "act", "addition", "adjustment", "advertisement", "agreement", "air",
   "amount", "amusement", "angle", "animal", "answer", "ant", "apparatus", "apple",
@@ -107,7 +107,7 @@ noun = element
   "whip", "whistle", "wind", "window", "wine", "wing", "winter", "wire", "woman",
   "wood", "wool", "word", "work", "worm", "wound", "writing", "year"]
 
-verb :: FGen Text
+verb :: FGen SingleWord
 verb = element
   ["is", "are", "has", "get", "see", "need", "know", "would", "find", "take",
   "want", "does", "learn", "become", "come", "include", "thank", "provide",
@@ -137,8 +137,8 @@ verb = element
   "hesitate", "illustrate", "inform", "manufacturing", "persuade", "pour",
   "propose", "remind", "shall", "submit", "suppose", "translate"]
 
-firstName :: FGen Text
-firstName = element
+firstName :: FGen SingleWord
+firstName = element $ map capitalize
   ["james", "john", "robert", "michael", "william", "david", "richard",
   "charles", "joseph", "thomas", "christopher", "daniel", "paul", "mark",
   "donald", "george", "kenneth", "steven", "edward", "brian", "ronald",
@@ -212,8 +212,8 @@ firstName = element
   "nellie", "minnie", "marlene", "heidi", "glenda", "lydia", "viola",
   "courtney", "marian", "stella", "caroline", "dora", "jo", "vickie", "mattie"]
 
-lastName :: FGen Text
-lastName = element
+lastName :: FGen SingleWord
+lastName = element $ map capitalize
   ["smith", "johnson", "williams", "jones", "brown", "davis", "miller",
   "wilson", "moore", "taylor", "anderson", "thomas", "jackson", "white",
   "harris", "martin", "thompson", "garcia", "martinez", "robinson", "clark",

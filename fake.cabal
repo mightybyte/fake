@@ -23,6 +23,7 @@ library
     Fake.Cover
     Fake.Lang
     Fake.Lang.EN
+    Fake.Utils
 
   other-modules:    Fake.Types
 

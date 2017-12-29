@@ -84,3 +84,15 @@ fakeTimeFromToHour hstart hend = secondsToDiffTime <$> fromRange (fromIntegral f
 
 fakeUTCFromToYear :: Integer -> Integer -> FGen UTCTime
 fakeUTCFromToYear ystart yend = UTCTime <$> fakeDayFromToYear ystart yend <*> fakeTimeFromToHour 0 24
+
+fakeDigit :: FGen Char
+fakeDigit = fakeEnumFromTo '0' '9'
+
+fakeDigitNonzero :: FGen Char
+fakeDigitNonzero = fakeEnumFromTo '1' '9'
+
+fakeLetter :: FGen Char
+fakeLetter = fakeEnumFromTo 'a' 'z'
+
+fakeCapitalLetter :: FGen Char
+fakeCapitalLetter = fakeEnumFromTo 'A' 'A'
