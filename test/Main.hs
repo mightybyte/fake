@@ -1,3 +1,4 @@
+{-# OPTIONS_GHC -fno-warn-orphans #-}
 {-# LANGUAGE DeriveGeneric        #-}
 
 module Main where
@@ -47,8 +48,8 @@ main = hspec $ do
       -- Since Person contains one Maybe field, cover should generate two values
       it "Person" $
         tc cover `shouldBe`
-        [ Person "Alice" "Baker" (fromGregorian 2017 05 13) Nothing
-        , Person "Frank" "Adams" (fromGregorian 2017 02 20) (Just "123-45-6789")
+        [ Person "lillie" "russell" (fromGregorian 1958 10 12) Nothing
+        , Person "tim" "brooks" (fromGregorian 1966 07 21) (Just "123-45-6789")
         ]
 
 instance Cover Int where
