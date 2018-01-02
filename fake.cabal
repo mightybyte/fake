@@ -21,6 +21,7 @@ library
     Fake.Class
     Fake.Combinators
     Fake.Cover
+    Fake.IdNumber.EN_US
     Fake.Lang
     Fake.Lang.EN
     Fake.Utils
