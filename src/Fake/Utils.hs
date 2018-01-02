@@ -23,7 +23,7 @@ numerify '@' = fakeDigitNonzero
 numerify c = return c
 
 lexify :: [Char] -> Char -> FGen Char
-lexify letters '?' = element letters
+lexify letters '?' = elements letters
 lexify _ c = return c
 
 bothify :: [Char] -> Char -> FGen Char
@@ -31,7 +31,7 @@ bothify _ '#' = fakeDigit
 bothify _ '%' = fakeDigitNonzero
 bothify _ '!' = fakeDigit
 bothify _ '@' = fakeDigitNonzero
-bothify letters '?' = element letters
+bothify letters '?' = elements letters
 bothify _ c = return c
 
 newtype NumberScheme = NumberScheme { unNumberScheme :: Text }

@@ -45,9 +45,9 @@ frequency xs0 = fromRange (1, tot) >>= (`pick` xs0)
   pick _ _  = error "Fake.pick used with empty list"
 
 -- | Generates one of the given values. The input list must be non-empty.
-element :: [a] -> FGen a
-element [] = error "Fake.element used with empty list"
-element xs = (xs !!) `fmap` fromRange (0, length xs - 1)
+elements :: [a] -> FGen a
+elements [] = error "Fake.element used with empty list"
+elements xs = (xs !!) `fmap` fromRange (0, length xs - 1)
 
 -- | Generates a random subsequence of the given list.
 sublistOf :: [a] -> FGen [a]

@@ -3,7 +3,6 @@ module Fake.Class where
 ------------------------------------------------------------------------------
 import Control.Monad
 import Data.List
-import Data.Time
 import Fake.Combinators
 import Fake.Types
 ------------------------------------------------------------------------------
@@ -21,7 +20,7 @@ instance Fake Bool where
     fake = fromRange (False,True)
 
 instance Fake Ordering where
-    fake = element [LT, EQ, GT]
+    fake = elements [LT, EQ, GT]
 
 instance Fake a => Fake (Maybe a) where
     fake = frequency [(1, return Nothing), (3, liftM Just fake)]
@@ -65,25 +64,21 @@ orderedList n = sort <$> listUpTo n fake
 infiniteList :: Fake a => FGen [a]
 infiniteList = infiniteListOf fake
 
+------------------------------------------------------------------------------
+-- | Generate a value of an enumeration in the range [from, to].
 fakeEnumFromTo :: Enum a => a -> a -> FGen a
 fakeEnumFromTo from to =
     toEnum <$> fromRange (fromEnum from, fromEnum to)
 
+------------------------------------------------------------------------------
+-- | Generate a value of an enumeration in the range [minBound, maxBound].
 fakeEnum :: (Enum a, Bounded a) => FGen a
 fakeEnum = fakeEnumFromTo minBound maxBound
 
-fakeDayFromToYear :: Integer -> Integer -> FGen Day
-fakeDayFromToYear ystart yend =
-    fakeEnumFromTo (fromGregorian ystart 1 1) (fromGregorian yend 12 31)
-
-fakeTimeFromToHour :: Int -> Int -> FGen DiffTime
-fakeTimeFromToHour hstart hend = secondsToDiffTime <$> fromRange (fromIntegral from, fromIntegral to)
-  where
-    from = hstart * 3600
-    to = hend * 3599
-
-fakeUTCFromToYear :: Integer -> Integer -> FGen UTCTime
-fakeUTCFromToYear ystart yend = UTCTime <$> fakeDayFromToYear ystart yend <*> fakeTimeFromToHour 0 24
+------------------------------------------------------------------------------
+-- | 'fakeEnumFromTo' specialized to Int.
+fakeInt :: Int -> Int -> FGen Int
+fakeInt = fakeEnumFromTo
 
 fakeDigit :: FGen Char
 fakeDigit = fakeEnumFromTo '0' '9'
@@ -96,3 +91,4 @@ fakeLetter = fakeEnumFromTo 'a' 'z'
 
 fakeCapitalLetter :: FGen Char
 fakeCapitalLetter = fakeEnumFromTo 'A' 'A'
+

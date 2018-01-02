@@ -1,6 +1,6 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 
-module Fake.Lang
+module Fake.Provider.Lang
   ( SingleWord(..)
   , capitalize
   , lowerize

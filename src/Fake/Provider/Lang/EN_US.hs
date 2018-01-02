@@ -1,13 +1,13 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Fake.Lang.EN where
+module Fake.Provider.Lang.EN_US where
 
 import Fake.Combinators
-import Fake.Lang
+import Fake.Provider.Lang
 import Fake.Types
 
 adjective :: FGen SingleWord
-adjective = element
+adjective = elements
   ["able", "acid", "angry", "automatic", "awake", "bad", "beautiful",
   "bent", "bitter", "black", "blue", "boiling", "bright", "broken",
   "brown", "certain", "cheap", "chemical", "chief", "clean", "clear",
@@ -32,7 +32,7 @@ adjective = element
 
 
 noun :: FGen SingleWord
-noun = element
+noun = elements
   ["account", "act", "addition", "adjustment", "advertisement", "agreement", "air",
   "amount", "amusement", "angle", "animal", "answer", "ant", "apparatus", "apple",
   "approval", "arch", "argument", "arm", "army", "art", "attack", "attempt",
@@ -108,7 +108,7 @@ noun = element
   "wood", "wool", "word", "work", "worm", "wound", "writing", "year"]
 
 verb :: FGen SingleWord
-verb = element
+verb = elements
   ["is", "are", "has", "get", "see", "need", "know", "would", "find", "take",
   "want", "does", "learn", "become", "come", "include", "thank", "provide",
   "create", "add", "understand", "consider", "choose", "develop", "remember",
@@ -138,7 +138,7 @@ verb = element
   "propose", "remind", "shall", "submit", "suppose", "translate"]
 
 firstName :: FGen SingleWord
-firstName = element $ map capitalize
+firstName = elements $ map capitalize
   ["james", "john", "robert", "michael", "william", "david", "richard",
   "charles", "joseph", "thomas", "christopher", "daniel", "paul", "mark",
   "donald", "george", "kenneth", "steven", "edward", "brian", "ronald",
@@ -213,7 +213,7 @@ firstName = element $ map capitalize
   "courtney", "marian", "stella", "caroline", "dora", "jo", "vickie", "mattie"]
 
 lastName :: FGen SingleWord
-lastName = element $ map capitalize
+lastName = elements $ map capitalize
   ["smith", "johnson", "williams", "jones", "brown", "davis", "miller",
   "wilson", "moore", "taylor", "anderson", "thomas", "jackson", "white",
   "harris", "martin", "thompson", "garcia", "martinez", "robinson", "clark",

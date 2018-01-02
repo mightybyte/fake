@@ -21,15 +21,19 @@ library
     Fake.Class
     Fake.Combinators
     Fake.Cover
-    Fake.IdNumber.EN_US
-    Fake.Lang
-    Fake.Lang.EN
+    Fake.Provider.DateTime
+    Fake.Provider.IdNumber.EN_US
+    Fake.Provider.Lang
+    Fake.Provider.Lang.EN_US
+    Fake.Provider.Locale
+    Fake.Provider.UserAgent
     Fake.Utils
 
   other-modules:    Fake.Types
 
   build-depends:
     base         >= 4.9 && < 4.10,
+    containers   >= 0.5 && < 0.6,
     generics-sop >= 0.3 && < 0.4,
     random       >= 1.1 && < 1.2,
     text         >= 1.2 && < 1.3,

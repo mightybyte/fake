@@ -14,8 +14,8 @@ import           Data.Text (unpack)
 import           Fake.Class
 import           Fake.Cover
 import           Fake.Combinators
-import           Fake.Lang
-import           Fake.Lang.EN
+import           Fake.Provider.Lang
+import           Fake.Provider.Lang.EN_US
 import           Fake.Types
 ------------------------------------------------------------------------------
 
@@ -54,10 +54,10 @@ main = hspec $ do
         ]
 
 instance Cover Int where
-    cover = Coverage [fakeEnumFromTo 0 100]
+    cover = Coverage [fakeInt 0 100]
 
 instance Cover Char where
-    cover = Coverage [fakeEnumFromTo 'a' 'z']
+    cover = Coverage [fakeLetter]
 
 data ThreePhonetic = Alpha | Bravo | Charlie
   deriving (Eq,Ord,Show,Generic)
@@ -77,11 +77,11 @@ instance Cover Four where
 birthdayCoverage :: Coverage Day
 birthdayCoverage = fromGregorian
     <$> Coverage [fakeEnumFromTo 1950 2017]
-    <*> Coverage [fakeEnumFromTo 1 12]
-    <*> Coverage [fakeEnumFromTo 1 31]
+    <*> Coverage [fakeInt 1 12]
+    <*> Coverage [fakeInt 1 31]
 
 ssnCoverage :: Coverage String
-ssnCoverage = Coverage [element ["123-45-6789", "000-00-0000"]]
+ssnCoverage = Coverage [elements ["123-45-6789", "000-00-0000"]]
 
 data Person = Person
   { personFirstName :: String
