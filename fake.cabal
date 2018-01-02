@@ -26,6 +26,7 @@ library
     Fake.Provider.Lang
     Fake.Provider.Lang.EN_US
     Fake.Provider.Locale
+    Fake.Provider.PhoneNumber.EN_US
     Fake.Provider.UserAgent
     Fake.Utils
 

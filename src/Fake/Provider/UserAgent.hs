@@ -14,9 +14,11 @@ import Fake.Provider.Locale
 import Fake.Types
 ------------------------------------------------------------------------------
 
+------------------------------------------------------------------------------
+-- | Fake user agent strings using a uniform distribution across the five
+-- major browsers.
 userAgent :: FGen String
 userAgent = oneof
-    -- TODO Might want to use a more realistic browser distribution
     [ chromeUserAgent
     , internetExplorerUserAgent
     , firefoxUserAgent
@@ -24,6 +26,21 @@ userAgent = oneof
     , operaUserAgent
     ]
 
+------------------------------------------------------------------------------
+-- | Fake user agent strings using a real-world distribution across the five
+-- major browsers.
+userAgentRealDist :: FGen String
+userAgentRealDist = frequency
+    -- Browser stats from https://www.w3schools.com/browsers/default.asp
+    [ (768, chromeUserAgent)
+    , (43, internetExplorerUserAgent)
+    , (125, firefoxUserAgent)
+    , (33, safariUserAgent)
+    , (16, operaUserAgent)
+    ]
+
+------------------------------------------------------------------------------
+-- | Fake user agent strings for Chrome.
 chromeUserAgent :: FGen String
 chromeUserAgent = do
     plat <- fakePlatform
@@ -37,6 +54,8 @@ chromeUserAgent = do
           plat saf chromeMajor chromeMinor saf
     return $ "Mozilla/5.0 " <> rest
 
+------------------------------------------------------------------------------
+-- | Fake user agent strings for Internet Explorer.
 internetExplorerUserAgent :: FGen String
 internetExplorerUserAgent = do
     plat <- windowsPlatform
@@ -53,6 +72,9 @@ underscoreToDash c = c
 dayStr :: Day -> String
 dayStr = formatTime defaultTimeLocale "%Y%m%d"
 
+
+------------------------------------------------------------------------------
+-- | Fake user agent strings for Firefox.
 firefoxUserAgent :: FGen String
 firefoxUserAgent = do
     let a :: FGen String
@@ -93,6 +115,8 @@ firefoxUserAgent = do
     return $ "Mozilla/5.0 " <> plat
 
 
+------------------------------------------------------------------------------
+-- | Fake user agent strings for Safari.
 safariUserAgent :: FGen String
 safariUserAgent = do
     saf :: String <- do
@@ -130,6 +154,9 @@ safariUserAgent = do
     plat <- oneof [win, mac, ipod]
     return $ "Mozilla/5.0 " <> plat
 
+
+------------------------------------------------------------------------------
+-- | Fake user agent strings for Opera.
 operaUserAgent :: FGen String
 operaUserAgent = do
     let getPlat = do
