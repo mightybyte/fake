@@ -21,11 +21,13 @@ library
     Fake.Class
     Fake.Combinators
     Fake.Cover
+    Fake.Provider.Address.EN_US
     Fake.Provider.DateTime
     Fake.Provider.IdNumber.EN_US
     Fake.Provider.Lang
     Fake.Provider.Lang.EN_US
     Fake.Provider.Locale
+    Fake.Provider.Person.EN_US
     Fake.Provider.PhoneNumber.EN_US
     Fake.Provider.UserAgent
     Fake.Utils

@@ -1,7 +1,9 @@
 module Fake.Types where
 
+------------------------------------------------------------------------------
 import Control.Monad
 import System.Random
+------------------------------------------------------------------------------
 
 newtype FGen a = MkFGen { unFGen :: StdGen -> a }
 

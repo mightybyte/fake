@@ -16,6 +16,7 @@ import           Fake.Cover
 import           Fake.Combinators
 import           Fake.Provider.Lang
 import           Fake.Provider.Lang.EN_US
+import           Fake.Provider.Person.EN_US
 import           Fake.Types
 ------------------------------------------------------------------------------
 

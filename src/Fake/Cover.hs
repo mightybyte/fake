@@ -12,14 +12,24 @@
 -- | Generate fake values with full constructor coverage
 --
 -- The idea behind Fake.Cover is that although exhaustive testing is highly
--- exponential, you can cover a majority of the likely problem cases with a
--- sub-exponential amount of work.  The number of test cases needed to ensure
--- that you have full coverage of all the constructors is given by the
+-- exponential, you can cover a large portion of the likely problem cases by
+-- exercising all the constructors of a data type and associated fields. This
+-- approach only requires a sub-exponential number of cases--far fewer than what
+-- you need for the exhaustive approach. The number of test cases needed to
+-- ensure that you have full coverage of all the constructors is given by the
 -- following relations for product and sum types:
 --
 -- numCases (a, b) = max (numCases a) (numCases b)
+--
 -- numCases (Either a b) = numCases a + numCases b
-module Fake.Cover (Cover(..), Coverage (..), gcover) where
+--
+-- See the test suite for examples of how many values are generated for
+-- different data types.
+module Fake.Cover
+  ( gcover
+  , Coverage(..)
+  , Cover(..)
+  ) where
 
 ------------------------------------------------------------------------------
 import Control.Applicative
@@ -29,6 +39,12 @@ import GHC.Generics as G
 import Fake.Types
 ------------------------------------------------------------------------------
 
+
+------------------------------------------------------------------------------
+-- | Coverage is a list of values, implemented here with a newtype around a
+-- list of fake value generators.  It's @[FGen a]@ instead of @FGen [a]@
+-- because we don't want to have to evaluate the 'FGen' monad to work with
+-- coverage lists.
 newtype Coverage a = Coverage { unCoverage :: [FGen a] }
   deriving (Functor)
 
@@ -45,6 +61,8 @@ instance Applicative Coverage where
 instance Alternative Coverage where
   empty = Coverage empty
   Coverage as <|> Coverage bs = Coverage (as ++ bs)
+
+
 ------------------------------------------------------------------------------
 -- | A type class that generates a list of values giving full construcor
 -- coverage for data types.  You can write your own instances by hand or you
@@ -83,7 +101,18 @@ instance (Cover a, Cover b, Cover c, Cover d, Cover e, Cover f, Cover g)
     cover = gcover
 -- GHC only has Generic instances up to 7-tuples
 
+
 ------------------------------------------------------------------------------
+-- | A generic function that gives you full constructor coverage for a data
+-- type.  Using this function as the 'Cover' instance for a data type avoids
+-- the need to explicitly enumerate values that include coverage of all
+-- constructors.
+gcover :: (Generic a, GCover ga, ga ~ G.Rep a) => Coverage a
+gcover = Coverage $ fmap G.to <$> genericCover
+
+
+------------------------------------------------------------------------------
+-- | Used to implement 'gcover'.
 class GCover a where
     genericCover :: [FGen (a x)]
 
@@ -110,6 +139,3 @@ instance (GCover a, GCover b) => GCover (a G.:*: b) where
 instance (GCover a, GCover b) => GCover (a G.:+: b) where
     genericCover = fmap (fmap G.L1) genericCover ++
                    fmap (fmap G.R1) genericCover
-
-gcover :: (Generic a, GCover ga, ga ~ G.Rep a) => Coverage a
-gcover = Coverage $ fmap G.to <$> genericCover

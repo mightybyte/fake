@@ -9,7 +9,8 @@ import Fake
 ------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------
--- | US social security numbers are of the form area-group-serial.
+-- | Generates a fake US social security number.  The have the form
+-- area-group-serial.
 ssn :: FGen String
 ssn = do
     area <- ssnArea
