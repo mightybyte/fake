@@ -15,7 +15,6 @@ import           Fake.Class
 import           Fake.Cover
 import           Fake.Combinators
 import           Fake.Provider.Lang
-import           Fake.Provider.Lang.EN_US
 import           Fake.Provider.Person.EN_US
 import           Fake.Types
 ------------------------------------------------------------------------------
@@ -50,8 +49,8 @@ main = hspec $ do
       -- Since Person contains one Maybe field, cover should generate two values
       it "Person" $
         tc cover `shouldBe`
-        [ Person "Lillie" "Russell" (fromGregorian 1958 10 12) Nothing
-        , Person "Tim" "Brooks" (fromGregorian 1966 07 21) (Just "123-45-6789")
+        [ Person "Maeve" "Russell" (fromGregorian 1958 10 12) Nothing
+        , Person "Lavern" "Brooks" (fromGregorian 1966 07 21) (Just "123-45-6789")
         ]
 
 instance Cover Int where
