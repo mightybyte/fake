@@ -1,5 +1,7 @@
 {-# LANGUAGE CPP                  #-}
 {-# LANGUAGE DataKinds            #-}
+{-# LANGUAGE DefaultSignatures    #-}
+{-# LANGUAGE DeriveFunctor        #-}
 {-# LANGUAGE DeriveGeneric        #-}
 {-# LANGUAGE FlexibleContexts     #-}
 {-# LANGUAGE RankNTypes           #-}
@@ -7,7 +9,6 @@
 {-# LANGUAGE TypeFamilies         #-}
 {-# LANGUAGE TypeOperators        #-}
 {-# LANGUAGE UndecidableInstances #-}
-{-# LANGUAGE DeriveFunctor #-}
 
 -- | Generate fake values with full constructor coverage
 --
@@ -66,9 +67,12 @@ instance Alternative Coverage where
 ------------------------------------------------------------------------------
 -- | A type class that generates a list of values giving full construcor
 -- coverage for data types.  You can write your own instances by hand or you
--- can use @instance Cover where cover = gcover@.
+-- can use the default instance which calls 'gcover' provided your data type
+-- has a Generic instance.
 class Cover a where
     cover :: Coverage a
+    default cover :: (Generic a, GCover ga, ga ~ G.Rep a) => Coverage a
+    cover = gcover
 
 instance Cover () where
     cover = gcover
