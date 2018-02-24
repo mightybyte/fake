@@ -7,7 +7,6 @@ import Data.Monoid
 import Data.Time
 import Text.Printf
 ------------------------------------------------------------------------------
-import Fake.Class
 import Fake.Combinators
 import Fake.Provider.DateTime
 import Fake.Provider.Locale

@@ -26,16 +26,9 @@ instance Monad FGen where
        in m' r2
     )
 
--- | Generates a random element in the given inclusive range.
-fromRange :: Random a => (a,a) -> FGen a
-fromRange rng = MkFGen (\r -> let (x,_) = randomR rng r in x)
 
--- | Generates a random element over the natural range of `a`.
-pickAny :: Random a => FGen a
-pickAny = MkFGen (\r -> let (x,_) = random r in x)
-
--- | Run a generator. The size passed to the generator is always 30;
--- if you want another size then you should explicitly use 'resize'.
+------------------------------------------------------------------------------
+-- | Run a generator to generate a random value in the IO monad.
 generate :: FGen a -> IO a
 generate (MkFGen g) = do
     r <- newStdGen

@@ -6,7 +6,6 @@ import           Data.String
 import           Data.Text (Text)
 import           GHC.Exts
 ------------------------------------------------------------------------------
-import           Fake.Class
 import           Fake.Combinators
 import           Fake.Types
 ------------------------------------------------------------------------------

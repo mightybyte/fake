@@ -2,7 +2,6 @@ module Fake.Class where
 
 ------------------------------------------------------------------------------
 import Control.Monad
-import Data.List
 import Fake.Combinators
 import Fake.Types
 ------------------------------------------------------------------------------
@@ -51,44 +50,4 @@ instance (Fake a, Fake b, Fake c, Fake d, Fake e, Fake f, Fake g)
           <*> fake <*> fake <*> fake <*> fake <*> fake <*> fake <*> fake
 
 -- GHC only has Generic instances up to 7-tuples
-
--- | Generates a list of a given length.
-fakeVector :: Fake a => Int -> FGen [a]
-fakeVector k = vectorOf k fake
-
--- | Generates an ordered list.
-orderedList :: (Ord a, Fake a) => Int -> FGen [a]
-orderedList n = sort <$> listUpTo n fake
-
--- | Generate an infinite list.
-infiniteList :: Fake a => FGen [a]
-infiniteList = infiniteListOf fake
-
-------------------------------------------------------------------------------
--- | Generate a value of an enumeration in the range [from, to].
-fakeEnumFromTo :: Enum a => a -> a -> FGen a
-fakeEnumFromTo from to =
-    toEnum <$> fromRange (fromEnum from, fromEnum to)
-
-------------------------------------------------------------------------------
--- | Generate a value of an enumeration in the range [minBound, maxBound].
-fakeEnum :: (Enum a, Bounded a) => FGen a
-fakeEnum = fakeEnumFromTo minBound maxBound
-
-------------------------------------------------------------------------------
--- | 'fakeEnumFromTo' specialized to Int.
-fakeInt :: Int -> Int -> FGen Int
-fakeInt = fakeEnumFromTo
-
-fakeDigit :: FGen Char
-fakeDigit = fakeEnumFromTo '0' '9'
-
-fakeDigitNonzero :: FGen Char
-fakeDigitNonzero = fakeEnumFromTo '1' '9'
-
-fakeLetter :: FGen Char
-fakeLetter = fakeEnumFromTo 'a' 'z'
-
-fakeCapitalLetter :: FGen Char
-fakeCapitalLetter = fakeEnumFromTo 'A' 'A'
 
