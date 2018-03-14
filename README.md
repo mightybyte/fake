@@ -1,5 +1,10 @@
-Fake is Haskell package for generating realistic-looking fake data.  The
-package has three main components:
+# Fake
+
+Fake is Haskell package for generating realistic-looking fake data.
+
+## Overview
+
+The package has three main components:
 
 1. An analog to QuickCheck's
    [Arbitrary](http://hackage.haskell.org/package/QuickCheck-2.11.3/docs/Test-QuickCheck-Arbitrary.html#t:Arbitrary)
