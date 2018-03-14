@@ -61,6 +61,14 @@ test-suite spec
   type: exitcode-stdio-1.0
   main-is: Main.hs
   hs-source-dirs: test, src
+  other-modules:
+    Fake.Class
+    Fake.Combinators
+    Fake.Cover
+    Fake.Provider.Lang
+    Fake.Provider.Person.EN_US
+    Fake.Types
+
   build-depends:
     base,
     hspec >= 2.4 && < 2.5,

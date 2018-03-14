@@ -11,7 +11,6 @@ import           System.Random
 import           Test.Hspec
 import           Data.Text (unpack)
 ------------------------------------------------------------------------------
-import           Fake.Class
 import           Fake.Cover
 import           Fake.Combinators
 import           Fake.Provider.Lang
