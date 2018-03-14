@@ -1,19 +1,32 @@
 name:                fake
-version:             0.1.0.0
+version:             0.1
 synopsis:            Randomly generated fake data
-description:
-  QuickCheck generates completely random data for the purposes of test and
-  catching corner cases.  The fake package provides tools for generating data
-  that looks plausibly real.
-
+description:         QuickCheck generates completely random data for the
+                     purposes of test and catching corner cases.  The fake
+                     package provides tools for generating data that looks
+                     plausibly real.
 license:             BSD3
 license-file:        LICENSE
 author:              Doug Beardsley
-maintainer:          doug@takt.com
-copyright:           Takt Inc
+maintainer:          mightybyte@gmail.com
+copyright:           Doug Beardsley, Formation Inc.
+homepage:            https://github.com/mightybyte/fake
+bug-reports:         https://github.com/mightybyte/fake/issues
+category:            Data
 build-type:          Simple
 extra-source-files:  ChangeLog.md
 cabal-version:       >=1.10
+tested-with:
+  GHC==7.6.3,
+  GHC==7.8.4,
+  GHC==7.10.3,
+  GHC==8.0.2,
+  GHC==8.2.1,
+  GHC==8.4.1
+
+Source-repository head
+  Type:     git
+  Location: https://github.com/mightybyte/fake.git
 
 library
   exposed-modules:
@@ -35,7 +48,7 @@ library
   other-modules:    Fake.Types
 
   build-depends:
-    base         >= 4.9 && < 4.11,
+    base         >= 4.6 && < 4.11,
     containers   >= 0.5 && < 0.6,
     generics-sop >= 0.3 && < 0.4,
     random       >= 1.1 && < 1.2,
