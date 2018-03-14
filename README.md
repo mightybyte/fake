@@ -1,5 +1,7 @@
 # Fake
 
+[![Build Status](https://travis-ci.org/mightybyte/fake.svg?branch=master)](https://travis-ci.org/mightybyte/fake)
+
 Fake is Haskell package for generating realistic-looking fake data.
 
 ## Overview
