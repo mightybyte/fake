@@ -38,7 +38,11 @@ lowerize = SingleWord .
 
 ------------------------------------------------------------------------------
 newtype Phrase = Phrase { unPhrase :: [SingleWord] }
+#if MIN_VERSION_base(4,11,0)
   deriving (Eq,Ord,Show,Semigroup,Monoid)
+#else
+  deriving (Eq,Ord,Show,Monoid)
+#endif
 
 phraseText :: Phrase -> Text
 phraseText = T.unwords . map unSingleWord . unPhrase
