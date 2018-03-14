@@ -7,13 +7,10 @@ package has three main components:
    [Gen](http://hackage.haskell.org/package/QuickCheck-2.11.3/docs/Test-QuickCheck-Gen.html#t:Gen)
    that use realistic probability distributions rather than the more uniform
    distributions used by QuickCheck.
-1. A [generic coverage
-   function](blob/master/src/Fake/Cover.hs#L114)
-   that generates [full constructor
-   coverage](blob/master/test/Main.hs#L33)
+1. A [generic coverage function](src/Fake/Cover.hs#L114)
+   that generates [full constructor coverage](test/Main.hs#L33)
    over a data type.
-1. A [suite of
-   providers](tree/master/src/Fake/Provider)
+1. A [suite of providers](src/Fake/Provider)
    for common types of data such as names, addresses, phone numbers, ID
    numbers, etc.
 
