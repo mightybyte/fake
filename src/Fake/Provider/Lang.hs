@@ -10,6 +10,7 @@ module Fake.Provider.Lang
   ) where
 
 import           Data.Bifunctor
+import           Data.Semigroup
 import           Data.String
 import           Data.Text (Text)
 import qualified Data.Text as T
