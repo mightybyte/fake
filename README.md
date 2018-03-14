@@ -8,7 +8,7 @@ package has three main components:
    that use realistic probability distributions rather than the more uniform
    distributions used by QuickCheck.
 1. A [generic coverage function](src/Fake/Cover.hs#L114)
-   that generates [full constructor coverage](test/Main.hs#L33)
+   that generates [full constructor coverage](test/Main.hs#L32)
    over a data type.
 1. A [suite of providers](src/Fake/Provider)
    for common types of data such as names, addresses, phone numbers, ID
