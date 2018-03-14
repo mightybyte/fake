@@ -18,7 +18,7 @@ import           Fake.Types
 ------------------------------------------------------------------------------
 -- | Newtype wrapper representing a single word.
 newtype SingleWord = SingleWord { unSingleWord :: Text }
-  deriving (Eq,Ord,Show,Monoid,IsString)
+  deriving (Eq,Ord,Show,Semigroup,Monoid,IsString)
 
 capitalize :: SingleWord -> SingleWord
 capitalize = SingleWord .
@@ -30,7 +30,7 @@ lowerize = SingleWord .
 
 ------------------------------------------------------------------------------
 newtype Phrase = Phrase { unPhrase :: [SingleWord] }
-  deriving (Eq,Ord,Show,Monoid)
+  deriving (Eq,Ord,Show,Semigroup,Monoid)
 
 phraseText :: Phrase -> Text
 phraseText = T.unwords . map unSingleWord . unPhrase
