@@ -22,6 +22,10 @@ tested-with:
   GHC==8.2.1,
   GHC==8.4.1
 
+extra-source-files:
+  default.nix
+  README.md
+
 Source-repository head
   Type:     git
   Location: https://github.com/mightybyte/fake.git
