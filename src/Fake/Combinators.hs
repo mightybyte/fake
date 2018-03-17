@@ -163,5 +163,5 @@ fakeLetter = fakeEnumFromTo 'a' 'z'
 
 ------------------------------------------------------------------------------
 fakeCapitalLetter :: FGen Char
-fakeCapitalLetter = fakeEnumFromTo 'A' 'A'
+fakeCapitalLetter = fakeEnumFromTo 'A' 'Z'
 
