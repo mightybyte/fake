@@ -2,13 +2,13 @@
 
 [![Build Status](https://travis-ci.org/mightybyte/fake.svg?branch=master)](https://travis-ci.org/mightybyte/fake)
 
-Fake is Haskell package for generating realistic-looking fake data.
+Fake is a Haskell package for generating realistic-looking fake data.
 
 ## Overview
 
 The package has three main components:
 
-1. An analog to QuickCheck's
+1. Analogs to QuickCheck's
    [Arbitrary](http://hackage.haskell.org/package/QuickCheck-2.11.3/docs/Test-QuickCheck-Arbitrary.html#t:Arbitrary)
    and
    [Gen](http://hackage.haskell.org/package/QuickCheck-2.11.3/docs/Test-QuickCheck-Gen.html#t:Gen)
@@ -33,6 +33,6 @@ without the combinatorial explosion of exhaustive testing.
 Original inspiration came from the production needs of
 [Formation](http://formation.ai/) (previously Takt).
 
-Providers and other details inspired by similar packages in
+Providers and other details were inspired by similar packages in
 [Python](https://github.com/joke2k/faker) and
 [Ruby](https://github.com/stympy/faker).  
