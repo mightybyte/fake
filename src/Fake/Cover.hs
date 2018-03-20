@@ -34,7 +34,6 @@ module Fake.Cover
 
 ------------------------------------------------------------------------------
 import Control.Applicative
-import Control.Monad
 import GHC.Generics as G
 ------------------------------------------------------------------------------
 import Fake.Types
@@ -130,16 +129,9 @@ instance GCover f => GCover (G.M1 i c f) where
     genericCover = fmap G.M1 <$> genericCover
 
 instance (GCover a, GCover b) => GCover (a G.:*: b) where
-    genericCover = zipWith (liftM2 (G.:*:))
-                     (acover ++ take (newlen - alen) (cycle acover))
-                     (bcover ++ take (newlen - blen) (cycle bcover))
-      where
-        acover = genericCover :: [FGen (a x)]
-        alen = length acover
-        bcover = genericCover :: [FGen (b x)]
-        blen = length bcover
-        newlen = max alen blen
+    genericCover = unCoverage $
+      (G.:*:) <$> Coverage genericCover <*> Coverage genericCover
 
 instance (GCover a, GCover b) => GCover (a G.:+: b) where
-    genericCover = fmap (fmap G.L1) genericCover ++
-                   fmap (fmap G.R1) genericCover
+    genericCover = unCoverage $
+      (G.L1 <$> Coverage genericCover) <|> (G.R1 <$> Coverage genericCover)
