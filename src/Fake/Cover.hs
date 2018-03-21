@@ -28,6 +28,7 @@
 -- different data types.
 module Fake.Cover
   ( gcover
+  , CoverageF(..)
   , Coverage(..)
   , Cover(..)
   ) where
@@ -41,16 +42,16 @@ import Fake.Types
 
 
 ------------------------------------------------------------------------------
--- | Coverage is a list of values, implemented here with a newtype around a
+-- | CoverageF is a list of values, implemented here with a newtype around a
 -- list of fake value generators.  It's @[FGen a]@ instead of @FGen [a]@
 -- because we don't want to have to evaluate the 'FGen' monad to work with
 -- coverage lists.
-newtype Coverage a = Coverage { unCoverage :: [FGen a] }
+newtype CoverageF f a = CoverageF { unCoverageF :: [f a] }
   deriving (Functor)
 
-instance Applicative Coverage where
-  pure = Coverage . pure . pure
-  Coverage as <*> Coverage bs = Coverage $ zipWith (<*>)
+instance Applicative f => Applicative (CoverageF f) where
+  pure = CoverageF . pure . pure
+  CoverageF as <*> CoverageF bs = CoverageF $ zipWith (<*>)
      (as ++ take (newlen - alen) (cycle as))
      (bs ++ take (newlen - blen) (cycle bs))
    where
@@ -58,10 +59,25 @@ instance Applicative Coverage where
     blen = length bs
     newlen = max alen blen
 
+instance Applicative f => Alternative (CoverageF f) where
+  empty = CoverageF empty
+  CoverageF as <|> CoverageF bs = CoverageF (as ++ bs)
+
+
+------------------------------------------------------------------------------
+-- | CoverageF with the functor specialized to FGen.
+newtype Coverage a = Coverage { unCoverage :: [FGen a] }
+  deriving (Functor)
+
+instance Applicative Coverage where
+  pure = Coverage . pure . pure
+  Coverage as <*> Coverage bs = Coverage $ unCoverageF $
+    CoverageF as <*> CoverageF bs
+
 instance Alternative Coverage where
   empty = Coverage empty
-  Coverage as <|> Coverage bs = Coverage (as ++ bs)
-
+  Coverage as <|> Coverage bs = Coverage $ unCoverageF $
+    CoverageF as <|> CoverageF bs
 
 ------------------------------------------------------------------------------
 -- | A type class that generates a list of values giving full construcor
