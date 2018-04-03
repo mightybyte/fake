@@ -48,8 +48,8 @@ main = hspec $ do
       -- Since Person contains one Maybe field, cover should generate two values
       it "Person" $
         tc cover `shouldBe`
-        [ Person "William" "Russell" (fromGregorian 1958 10 12) Nothing
-        , Person "Michael" "Brooks" (fromGregorian 1966 07 21) (Just "123-45-6789")
+        [ Person "Opal" "Clark" (fromGregorian 1958 10 12) Nothing
+        , Person "Katherine" "Oneill" (fromGregorian 1966 07 21) (Just "123-45-6789")
         ]
 
 instance Cover Int where
