@@ -109,7 +109,7 @@ firefoxUserAgent = do
         mac = do
           plat <- macPlatform
           n <- fakeInt 2 6
-          return $ printf "(%s; rv:1.9.%d.20) %s" plat n
+          return $ printf "(%s; rv:1.9.%d.20) %s" plat n ver
     plat <- oneof [win, lin, mac]
     return $ "Mozilla/5.0 " <> plat
 
