@@ -1,6 +1,25 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Fake.Provider.Person.EN_US where
+module Fake.Provider.Person.EN_US
+  ( personName
+  , femaleName
+  , maleName
+  , femalePrefix
+  , femalePrefixList
+  , malePrefix
+  , malePrefixList
+  , femaleSuffix
+  , femaleSuffixList
+  , maleSuffix
+  , maleSuffixList
+  , firstName
+  , femaleFirstName
+  , femaleNameList
+  , maleFirstName
+  , maleNameList
+  , lastName
+  , lastNameList
+  ) where
 
 ------------------------------------------------------------------------------
 import           Data.Bifunctor
@@ -65,7 +84,19 @@ femaleFirstName = frequency $ map (second (return . SingleWord)) femaleNameList
 -- with that name.  This is from a dataset of 302037244 names from the Social
 -- Security Adminisatration between 1910 and 2015.
 femaleNameList :: [(Int, Text)]
-femaleNameList =
+femaleNameList = femaleNameList00
+              ++ femaleNameList01
+              ++ femaleNameList02
+              ++ femaleNameList03
+              ++ femaleNameList04
+              ++ femaleNameList05
+              ++ femaleNameList06
+              ++ femaleNameList07
+              ++ femaleNameList08
+              ++ femaleNameList09
+
+femaleNameList00 :: [(Int, Text)]
+femaleNameList00 =
     [ (3733620,"Mary")
     , (1568111,"Patricia")
     , (1510283,"Elizabeth")
@@ -166,7 +197,11 @@ femaleNameList =
     , (334089,"Tiffany")
     , (331564,"Natalie")
     , (330711,"Abigail")
-    , (330643,"Kathy")
+    ]
+
+femaleNameList01 :: [(Int, Text)]
+femaleNameList01 =
+    [ (330643,"Kathy")
     , (330129,"Kayla")
     , (329816,"Alexis")
     , (329507,"Tammy")
@@ -266,7 +301,11 @@ femaleNameList =
     , (180439,"Renee")
     , (179599,"Eileen")
     , (177977,"Lynn")
-    , (176811,"Kristin")
+    ]
+
+femaleNameList02 :: [(Int, Text)]
+femaleNameList02 =
+    [ (176811,"Kristin")
     , (176703,"Kim")
     , (175442,"Jo")
     , (171625,"Tara")
@@ -366,7 +405,11 @@ femaleNameList =
     , (111010,"Autumn")
     , (109714,"Caitlin")
     , (108383,"Yolanda")
-    , (107842,"Nora")
+    ]
+
+femaleNameList03 :: [(Int, Text)]
+femaleNameList03 =
+    [ (107842,"Nora")
     , (107773,"Angelina")
     , (107422,"Carole")
     , (107359,"Vickie")
@@ -466,7 +509,11 @@ femaleNameList =
     , (74690,"Madelyn")
     , (74349,"Lynda")
     , (74197,"Kristi")
-    , (74128,"Aaliyah")
+    ]
+
+femaleNameList04 :: [(Int, Text)]
+femaleNameList04 =
+    [ (74128,"Aaliyah")
     , (74005,"Gabriela")
     , (73781,"Jade")
     , (73703,"Marguerite")
@@ -566,7 +613,11 @@ femaleNameList =
     , (50112,"Traci")
     , (49914,"Celeste")
     , (49890,"Vicky")
-    , (49874,"Kirsten")
+    ]
+
+femaleNameList05 :: [(Int, Text)]
+femaleNameList05 =
+    [ (49874,"Kirsten")
     , (49629,"Olga")
     , (49300,"Alana")
     , (49272,"Aimee")
@@ -666,7 +717,11 @@ femaleNameList =
     , (37628,"Pat")
     , (37226,"Tricia")
     , (37160,"Dixie")
-    , (36923,"Nadia")
+    ]
+
+femaleNameList06 :: [(Int, Text)]
+femaleNameList06 =
+    [ (36923,"Nadia")
     , (36912,"Trisha")
     , (36868,"Ebony")
     , (36839,"Julianna")
@@ -766,7 +821,11 @@ femaleNameList =
     , (29050,"Charity")
     , (29032,"Trina")
     , (28986,"Aubree")
-    , (28781,"London")
+    ]
+
+femaleNameList07 :: [(Int, Text)]
+femaleNameList07 =
+    [ (28781,"London")
     , (28758,"Kassandra")
     , (28606,"Latasha")
     , (28507,"Nettie")
@@ -866,7 +925,11 @@ femaleNameList =
     , (22538,"Luz")
     , (22435,"Goldie")
     , (22401,"Cleo")
-    , (22388,"Phoebe")
+    ]
+
+femaleNameList08 :: [(Int, Text)]
+femaleNameList08 =
+    [ (22388,"Phoebe")
     , (22258,"Clare")
     , (22167,"Elva")
     , (22144,"Jenifer")
@@ -966,7 +1029,11 @@ femaleNameList =
     , (17990,"India")
     , (17981,"Kaylie")
     , (17861,"Emilie")
-    , (17859,"Leanna")
+    ]
+
+femaleNameList09 :: [(Int, Text)]
+femaleNameList09 =
+    [ (17859,"Leanna")
     , (17836,"Ladonna")
     , (17819,"Dale")
     , (17801,"Marcy")
@@ -1078,7 +1145,19 @@ maleFirstName = frequency $ map (second (return . SingleWord)) maleNameList
 -- with that name.  This is from a dataset of 302037244 names from the Social
 -- Security Adminisatration between 1910 and 2015.
 maleNameList :: [(Int, Text)]
-maleNameList =
+maleNameList = maleNameList00
+            ++ maleNameList01
+            ++ maleNameList02
+            ++ maleNameList03
+            ++ maleNameList04
+            ++ maleNameList05
+            ++ maleNameList06
+            ++ maleNameList07
+            ++ maleNameList08
+            ++ maleNameList09
+
+maleNameList00 :: [(Int, Text)]
+maleNameList00 =
     [ (4954037,"James")
     , (4840467,"John")
     , (4716978,"Robert")
@@ -1179,7 +1258,11 @@ maleNameList =
     , (314693,"Gabriel")
     , (309940,"Bobby")
     , (305881,"Johnny")
-    , (303507,"Victor")
+    ]
+
+maleNameList01 :: [(Int, Text)]
+maleNameList01 =
+    [ (303507,"Victor")
     , (301431,"Phillip")
     , (299161,"Shawn")
     , (297953,"Bradley")
@@ -1279,7 +1362,11 @@ maleNameList =
     , (154457,"Seth")
     , (154318,"Jerome")
     , (154267,"Bill")
-    , (154175,"Liam")
+    ]
+
+maleNameList02 :: [(Int, Text)]
+maleNameList02 =
+    [ (154175,"Liam")
     , (153323,"Leon")
     , (152576,"Trevor")
     , (152065,"Owen")
@@ -1379,7 +1466,11 @@ maleNameList =
     , (88012,"Omar")
     , (86969,"Everett")
     , (86875,"Parker")
-    , (86766,"Lonnie")
+    ]
+
+maleNameList03 :: [(Int, Text)]
+maleNameList03 =
+    [ (86766,"Lonnie")
     , (86683,"Tanner")
     , (85747,"Brendan")
     , (84624,"Riley")
@@ -1479,7 +1570,11 @@ maleNameList =
     , (54539,"Caden")
     , (54416,"Jonah")
     , (54374,"Jaxon")
-    , (54310,"Kaden")
+    ]
+
+maleNameList04 :: [(Int, Text)]
+maleNameList04 =
+    [ (54310,"Kaden")
     , (53538,"Luther")
     , (53524,"Dallas")
     , (53421,"Gage")
@@ -1579,7 +1674,11 @@ maleNameList =
     , (35981,"Frankie")
     , (35883,"Sylvester")
     , (35796,"Irving")
-    , (35714,"Skyler")
+    ]
+
+maleNameList05 :: [(Int, Text)]
+maleNameList05 =
+    [ (35714,"Skyler")
     , (35698,"Cedric")
     , (35656,"Morgan")
     , (35433,"Asher")
@@ -1679,7 +1778,11 @@ maleNameList =
     , (26665,"Doyle")
     , (26647,"Darrin")
     , (26600,"Lukas")
-    , (26570,"Bradford")
+    ]
+
+maleNameList06 :: [(Int, Text)]
+maleNameList06 =
+    [ (26570,"Bradford")
     , (26520,"Guillermo")
     , (26493,"Bennett")
     , (26489,"Dexter")
@@ -1779,7 +1882,11 @@ maleNameList =
     , (18313,"Anderson")
     , (18176,"Luca")
     , (18079,"Courtney")
-    , (18075,"Stacy")
+    ]
+
+maleNameList07 :: [(Int, Text)]
+maleNameList07 =
+    [ (18075,"Stacy")
     , (18051,"Cruz")
     , (17958,"Matt")
     , (17953,"Noe")
@@ -1879,7 +1986,11 @@ maleNameList =
     , (13074,"Reece")
     , (13039,"Braylon")
     , (13033,"Titus")
-    , (13026,"Kade")
+    ]
+
+maleNameList08 :: [(Int, Text)]
+maleNameList08 =
+    [ (13026,"Kade")
     , (12991,"Rowan")
     , (12982,"Jarvis")
     , (12972,"Waylon")
@@ -1979,7 +2090,11 @@ maleNameList =
     , (10481,"Tyree")
     , (10454,"Quintin")
     , (10446,"Carlo")
-    , (10405,"Ezequiel")
+    ]
+
+maleNameList09 :: [(Int, Text)]
+maleNameList09 =
+    [ (10405,"Ezequiel")
     , (10396,"Ronny")
     , (10379,"Maynard")
     , (10370,"Abram")
@@ -2090,8 +2205,19 @@ lastName = frequency $ map (second (return . SingleWord)) lastNameList
 -- | List of the 1000 most common U.S. surnames and the number of people with
 -- that name.  This is from a dataset of 269762087 names from the 2000 U.S.
 -- Census.
-lastNameList :: [(Int, Text)]
-lastNameList =
+lastNameList = lastNameList00
+            ++ lastNameList01
+            ++ lastNameList02
+            ++ lastNameList03
+            ++ lastNameList04
+            ++ lastNameList05
+            ++ lastNameList06
+            ++ lastNameList07
+            ++ lastNameList08
+            ++ lastNameList09
+
+lastNameList00 :: [(Int, Text)]
+lastNameList00 =
     [ (2376206,"Smith")
     , (1857160,"Johnson")
     , (1534042,"Williams")
@@ -2192,7 +2318,11 @@ lastNameList =
     , (210879,"Butler")
     , (210426,"Barnes")
     , (210279,"Fisher")
-    , (210094,"Henderson")
+    ]
+
+lastNameList01 :: [(Int, Text)]
+lastNameList01 =
+    [ (210094,"Henderson")
     , (208624,"Coleman")
     , (201650,"Simmons")
     , (198557,"Patterson")
@@ -2292,7 +2422,11 @@ lastNameList =
     , (131896,"Cunningham")
     , (131860,"Knight")
     , (131289,"Bradley")
-    , (131020,"Carroll")
+    ]
+
+lastNameList02 :: [(Int, Text)]
+lastNameList02 =
+    [ (131020,"Carroll")
     , (130793,"Hudson")
     , (130419,"Duncan")
     , (129982,"Armstrong")
@@ -2392,7 +2526,11 @@ lastNameList =
     , (92831,"Estrada")
     , (92660,"Contreras")
     , (92287,"Barnett")
-    , (91338,"Caldwell")
+    ]
+
+lastNameList03 :: [(Int, Text)]
+lastNameList03 =
+    [ (91338,"Caldwell")
     , (90967,"Santiago")
     , (90618,"Lambert")
     , (90401,"Powers")
@@ -2492,7 +2630,11 @@ lastNameList =
     , (72533,"Figueroa")
     , (72414,"Harmon")
     , (72328,"Newton")
-    , (72248,"Paul")
+    ]
+
+lastNameList04 :: [(Int, Text)]
+lastNameList04 =
+    [ (72248,"Paul")
     , (72069,"Manning")
     , (72052,"Garner")
     , (71925,"Mcgee")
@@ -2592,7 +2734,11 @@ lastNameList =
     , (59949,"Pham")
     , (59843,"Lang")
     , (59801,"Pratt")
-    , (59731,"Lara")
+    ]
+
+lastNameList05 :: [(Int, Text)]
+lastNameList05 =
+    [ (59731,"Lara")
     , (59682,"Brock")
     , (59660,"Ballard")
     , (59609,"Trujillo")
@@ -2692,7 +2838,11 @@ lastNameList =
     , (51154,"Phelps")
     , (51095,"Farrell")
     , (51089,"Castaneda")
-    , (51021,"Nash")
+    ]
+
+lastNameList06 :: [(Int, Text)]
+lastNameList06 =
+    [ (51021,"Nash")
     , (51017,"Dickerson")
     , (50980,"Bond")
     , (50874,"Wyatt")
@@ -2792,7 +2942,11 @@ lastNameList =
     , (44701,"Kemp")
     , (44698,"Mosley")
     , (44640,"Prince")
-    , (44626,"Merritt")
+    ]
+
+lastNameList07 :: [(Int, Text)]
+lastNameList07 =
+    [ (44626,"Merritt")
     , (44587,"Hurst")
     , (44570,"Villanueva")
     , (44454,"Roach")
@@ -2892,7 +3046,11 @@ lastNameList =
     , (39369,"Michael")
     , (39270,"Donovan")
     , (39203,"Mcconnell")
-    , (39166,"Walls")
+    ]
+
+lastNameList08 :: [(Int, Text)]
+lastNameList08 =
+    [ (39166,"Walls")
     , (39141,"Boyle")
     , (39111,"Mayer")
     , (39057,"Zuniga")
@@ -2992,7 +3150,11 @@ lastNameList =
     , (35326,"Schmitt")
     , (35282,"Novak")
     , (35227,"Costa")
-    , (35196,"Montes")
+    ]
+
+lastNameList09 :: [(Int, Text)]
+lastNameList09 =
+    [ (35196,"Montes")
     , (35101,"Booker")
     , (35074,"Cordova")
     , (35001,"Waller")
