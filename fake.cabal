@@ -1,5 +1,5 @@
 name:                fake
-version:             0.1.1
+version:             0.1.1.1
 synopsis:            Randomly generated fake data
 description:         QuickCheck generates completely random data for the
                      purposes of test and catching corner cases.  The fake
