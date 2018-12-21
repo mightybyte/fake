@@ -21,7 +21,7 @@ tested-with:
   GHC==8.0.2,
   GHC==8.2.1,
   GHC==8.4.3,
-  GHC==8.6.1
+  GHC==8.6.3
 
 extra-source-files:
   default.nix
@@ -76,7 +76,7 @@ test-suite spec
 
   build-depends:
     base,
-    hspec >= 2.4 && < 2.6,
+    hspec >= 2.4 && < 2.7,
     random,
     text,
     time
