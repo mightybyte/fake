@@ -8,6 +8,7 @@ import           GHC.Exts
 ------------------------------------------------------------------------------
 import           Fake.Combinators
 import           Fake.Types
+import           Fake.Class
 ------------------------------------------------------------------------------
 
 numerify :: Char -> FGen Char
@@ -52,3 +53,22 @@ newtype AlphaNumScheme = AlphaNumScheme { unAlphaNumScheme :: Text }
 fakeAlphaNumScheme :: AlphaNumScheme -> FGen Text
 fakeAlphaNumScheme (AlphaNumScheme t) =
     fmap fromList $ mapM (bothify ['a'..'z']) $ toList t
+
+------------------------------------------------------------------------------hc
+-- | Generates two distinct values.
+distinctPair :: (Fake a, Eq a) => FGen (a, a)
+distinctPair =
+  fake >>= \a -> do
+        b <- suchThat fake (/= a)
+        return (a,b)
+
+------------------------------------------------------------------------------
+-- | Tries to generate two distinct values. This is faster than
+-- distinctPair since it only tries to generate the pair once!.
+distinctPairMaybe :: (Fake a, Eq a) => FGen (Maybe (a, a))
+distinctPairMaybe =
+  fake >>= \a -> do
+        mb <- suchThatMaybe fake (/= a)
+        return $ case mb of
+            Just b -> Just (a,b)
+            Nothing -> Nothing
