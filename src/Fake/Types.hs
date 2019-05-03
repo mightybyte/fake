@@ -33,4 +33,3 @@ generate :: FGen a -> IO a
 generate (MkFGen g) = do
     r <- newStdGen
     return (g r)
-
