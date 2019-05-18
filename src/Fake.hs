@@ -6,6 +6,7 @@ module Fake
   , module Fake.Utils
   ) where
 
+-- Innocuous testing comment
 import Fake.Class
 import Fake.Combinators
 import Fake.Cover
