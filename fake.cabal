@@ -78,6 +78,7 @@ test-suite spec
   build-depends:
     base,
     hspec >= 2.4 && < 2.8,
+    lens >= 4.18.1 && < 5.1,
     random,
     text,
     time
