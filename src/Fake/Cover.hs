@@ -30,6 +30,8 @@ module Fake.Cover
   ( gcover
   , Coverage(..)
   , Cover(..)
+  , bindCover
+  , (&>>=)
   ) where
 
 ------------------------------------------------------------------------------
@@ -57,6 +59,29 @@ instance Applicative Coverage where
     alen = length as
     blen = length bs
     newlen = max alen blen
+
+------------------------------------------------------------------------------
+-- | In some situations you don't have the ability to modify a data structure
+-- and need to define different Cover instances for different fields that have
+-- the same type.  In these situations, instead of implementing the gcover
+-- logic by hand, you could alternatively use gcover to generate stock
+-- coverage values and then go back and replace the necessary fields with more
+-- appropriate generators.  This bind-like operation provides an easy way to
+-- do that.
+bindCover :: Coverage a -> (a -> FGen b) -> Coverage b
+bindCover (Coverage gens) f = Coverage $ map (>>= f) gens
+
+------------------------------------------------------------------------------
+-- | Convenience infix operator for bindCover.
+--
+-- @
+-- instance Cover Foo where
+--   cover = gcover
+--     &>>= fooField %%~ (\_ -> fakeFooField)
+-- @
+(&>>=) :: Coverage a -> (a -> FGen b) -> Coverage b
+(&>>=) = bindCover
+infixl 1 &>>=
 
 instance Alternative Coverage where
   empty = Coverage empty
