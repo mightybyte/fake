@@ -2205,6 +2205,7 @@ lastName = frequency $ map (second (return . SingleWord)) lastNameList
 -- | List of the 1000 most common U.S. surnames and the number of people with
 -- that name.  This is from a dataset of 269762087 names from the 2000 U.S.
 -- Census.
+lastNameList :: [(Int, Text)]
 lastNameList = lastNameList00
             ++ lastNameList01
             ++ lastNameList02
