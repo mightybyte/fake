@@ -1,4 +1,5 @@
 {-# OPTIONS_GHC -fno-warn-orphans #-}
+{-# LANGUAGE CPP #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE TemplateHaskell #-}
 
@@ -86,6 +87,32 @@ tc = testFake . sequence . unCoverage
 main :: IO ()
 main = hspec $ do
     describe "Fake.Cover" $ do
+
+#if MIN_VERSION_random(1,2,0)
+      it "Maybe Int" $
+        tc gcover `shouldBe` [Nothing, Just (37 :: Int)]
+      it "Either Int Char" $
+        tc gcover `shouldBe` [Left (8 :: Int), Right 'f']
+      it "(Maybe Int, ThreePhonetic)" $
+        tc gcover `shouldBe`
+        [(Nothing,Alpha),(Just (26 :: Int),Bravo),(Nothing,Charlie)]
+      it "(Either ThreePhonetic Four)" $
+        tc gcover `shouldBe`
+        [ Left Alpha
+        , Left Bravo
+        , Left Charlie
+        , Right (MOne 39)
+        , Right (MTwo 'u')
+        , Right (MThree 17)
+        , Right (MFour 'C')
+        ]
+      -- Since Person contains one Maybe field, cover should generate two values
+      it "Person" $
+        tc cover `shouldBe`
+        [ Person "Jaylen" "Massey" (fromGregorian 1967 1 21) Nothing
+        , Person "Timothy" "Garcia" (fromGregorian 2007 4 18) (Just "000-00-0000")
+        ]
+#else
       it "Maybe Int" $
         tc gcover `shouldBe` [Nothing, Just (94 :: Int)]
       it "Either Int Char" $
@@ -109,3 +136,4 @@ main = hspec $ do
         [ Person "Opal" "Clark" (fromGregorian 1958 10 12) Nothing
         , Person "Katherine" "Oneill" (fromGregorian 1966 07 21) (Just "123-45-6789")
         ]
+#endif
